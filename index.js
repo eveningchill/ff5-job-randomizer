@@ -1,5 +1,5 @@
 import express from "express";
-import { STARTING_CHARACTERS, POST_SWAP_CHARACTERS, jobSets, PROGRESS_GATES, BARTZ, FREELANCER, LENNA, GALUF, FARIS, KRILE } from "./constants.js";
+import { STARTING_CHARACTERS, POST_SWAP_CHARACTERS, JOB_SETS, PROGRESS_GATES, BARTZ, FREELANCER, LENNA, GALUF, FARIS, KRILE } from "./constants.js";
 import { getRandomElementFromArray, stringsMatchCaseInsensitive } from "./utils.js";
 
 const app = express();
@@ -34,7 +34,7 @@ const swapGalufForKrile = (req, res, next) => {
     res.send("RIP Galuf.");
 };
 
-const getAvailableJobs = () => jobSets.slice(gameState.freelancerAllowed ? 0 : 1, gameState.gateProgress + 1).flat();
+const getAvailableJobs = () => JOB_SETS.slice(gameState.freelancerAllowed ? 0 : 1, gameState.gateProgress + 1).flat();
 
 const starterJobs = (req, res, next) => {
     gameState.gateProgress = 1;
@@ -75,7 +75,7 @@ const progressGame = (req, res, next) => {
         res.send("Progression is already maxed. Use !resetprogress or !newgame to start over.");
     } else {
         gameState.gateProgress += 1;
-        res.send(`Progress logged! You're now at gate ${gameState.gateProgress} (${PROGRESS_GATES[gameState.gateProgress]}). Unlocked ${jobSets[gameState.gateProgress].length} new jobs: ${jobSets[gameState.gateProgress].join(", ")}`);
+        res.send(`Progress logged! You're now at gate ${gameState.gateProgress} (${PROGRESS_GATES[gameState.gateProgress]}). Unlocked ${JOB_SETS[gameState.gateProgress].length} new jobs: ${JOB_SETS[gameState.gateProgress].join(", ")}`);
     }
 };
 
